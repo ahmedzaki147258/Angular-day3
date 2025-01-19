@@ -1,0 +1,25 @@
+<div class="card" style="max-width: 18rem;">
+  <!--  Card Image-->
+  <div class="position-relative bg-secondary bg-opacity-10" style="border-top-left-radius: 15px; border-top-right-radius: 15px">
+    <span class="position-absolute top-0 start-0 m-2 badge rounded-pill" [class.bg-success]="product.stock > 0" [class.bg-danger]="product.stock === 0">
+      @if(product.stock > 0) { In stock } @else { Out of stock }
+    </span>
+    <img [src]="product.images[0]" class="card-img-top" [alt]="product.title">
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <h5 class="card-title">{{ product.title }}</h5>
+    <p class="card-text text-muted small">{{ product.description.length > 30 ? product.description.substring(0, 30)+'...' : product.description }}</p>
+    <div class="d-flex" [innerHTML]="starsHtml"></div> <!-- stars -->
+
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="h5 mb-0">${{ product.price }}</span>
+      @if(product.stock > 0) {
+        <button type="button" class="btn btn-outline-success rounded-5" (click)="navigateToDetails(product.id)">Add to Cart</button>
+      } @else {
+        <button type="button" class="btn btn-outline-secondary rounded-5" disabled> Add to Cart</button>
+      }
+    </div>
+  </div>
+</div>

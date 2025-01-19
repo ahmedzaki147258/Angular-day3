@@ -1,0 +1,23 @@
+<!--<div class="container mt-4">-->
+<!--  <h5>welcome to our shopping website, start browsing...</h5>-->
+
+<!--  <div class="row g-4">-->
+<!--    @for (product of products; track product.id) {-->
+<!--      <div class="col-12 col-md-6 col-lg-3">-->
+<!--        <app-product-card [product]="product"></app-product-card>-->
+<!--      </div>-->
+<!--    }-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="container mt-4">
+  <h5>Welcome to our shopping website, start browsing...</h5>
+
+  <div class="row g-4">
+    @for (product of products; track product.id) {
+      <div class="col-custom">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.main-image {
+  max-height: 500px;
+  width: auto;
+  object-fit: cover;
+}
+
+.img-thumbnail {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.img-thumbnail:hover {
+  transform: scale(1.1);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .display-5 {
+    font-size: 1.8rem;
+  }
+}

@@ -1,0 +1,63 @@
+<div class="container py-5">
+  <div class="row g-5">
+    <!-- Product Image -->
+    <div class="col-lg-6">
+      <div class="position-relative">
+        <img [src]="product!.images[0]" class="img-fluid rounded main-image" [alt]="product!.title">
+        <div class="d-flex justify-content-center mt-3">
+          @for (image of product!.images; track image) {
+            <img [src]="image" class="img-thumbnail mx-2" [alt]="product!.images[0]" style="width: 70px; height: 70px;">
+          }
+          </div>
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="col-lg-6">
+      <h1 class="display-5">{{ product!.title }}</h1>
+      <p class="text-muted">{{ product!.description }}</p>
+
+      <!-- Rating Reviews -->
+      <div class="d-flex align-items-center my-3">
+        <div class="d-flex" [innerHTML]="starsHtml"></div> <!-- stars -->
+        <span class="text-muted">({{ product!.reviews.length }} Reviews)</span>
+      </div>
+
+      <!-- Price -->
+      <h3 class="text-success">${{ product!.price }} <span class="text-muted fs-6">or {{ (product!.price/12).toFixed(2) }}/month</span></h3>
+      <p class="text-muted">Suggested payments with 6 months special financing.</p>
+
+      <!-- Stock -->
+      <div class="mb-4">
+        @if(product!.stock > 0) {
+          <span class="badge bg-success">In Stock</span>
+        } @else {
+          <span class="badge bg-danger">Out of Stock</span>
+        }
+      </div>
+
+      <!-- Information Tags -->
+      <div class="d-flex mb-4">
+        <button class="btn btn-outline-secondary btn-sm me-2">{{ product!.category }}</button>
+        <button class="btn btn-outline-secondary btn-sm">{{ product!.brand }}</button>
+      </div>
+
+      <div class="d-flex align-items-center mb-4">
+        <button class="btn btn-outline-secondary">-</button>
+        <input type="number" class="form-control mx-2 text-center" style="width: 60px;" value="1">
+        <button class="btn btn-outline-secondary">+</button>
+      </div>
+
+      <p class="text-danger small">Only {{ product!.stock }} Items Left! Don’t miss it.</p>
+
+      <div class="d-flex">
+        <button class="btn btn-success me-3">Buy Now</button>
+        @if(product!.stock > 0) {
+          <button class="btn btn-outline-success">Add to Cart</button>
+        } @else {
+          <button class="btn btn-outline-secondary" disabled>Add to Cart</button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

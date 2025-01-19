@@ -1,0 +1,25 @@
+.col-custom {
+  flex: 0 0 20%; /* Each product takes 20% of the row */
+  max-width: 20%; /* Ensures consistent sizing */
+}
+
+@media (max-width: 992px) { /* Adjust for smaller screens */
+  .col-custom {
+    flex: 0 0 33.33%; /* 3 per row on tablets */
+    max-width: 33.33%;
+  }
+}
+
+@media (max-width: 768px) { /* Adjust for mobile screens */
+  .col-custom {
+    flex: 0 0 50%; /* 2 per row on smaller devices */
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 576px) { /* Single column on extra-small screens */
+  .col-custom {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
