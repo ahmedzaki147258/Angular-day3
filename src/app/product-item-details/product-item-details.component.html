@@ -24,7 +24,11 @@
       </div>
 
       <!-- Price -->
-      <h3 class="text-success">${{ product!.price }} <span class="text-muted fs-6">or {{ (product!.price/12).toFixed(2) }}/month</span></h3>
+      <h3>
+        <span class="text-decoration-line-through text-muted me-2"> {{ product!.price | currency }}</span>
+        <span class="text-success">{{ product!.price | discountPrice: product!.discountPercentage | currency }}</span>
+        <span class="text-muted fs-6">or {{ (product!.price/12).toFixed(2) }}/month</span>
+      </h3>
       <p class="text-muted">Suggested payments with 6 months special financing.</p>
 
       <!-- Stock -->

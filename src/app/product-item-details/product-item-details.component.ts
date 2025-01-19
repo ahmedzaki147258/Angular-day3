@@ -2,10 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { product } from '../interfaces/product.interface';
 import productsData from '../../../public/products.json';
+import {CurrencyPipe} from '@angular/common';
+import {DiscountPricePipe} from '../pipes/discount-price.pipe';
 
 @Component({
   selector: 'app-product-item-details',
-  imports: [],
+  imports: [
+    DiscountPricePipe,
+    CurrencyPipe
+  ],
   templateUrl: './product-item-details.component.html',
   standalone: true,
   styleUrl: './product-item-details.component.css'
@@ -14,7 +19,7 @@ export class ProductItemDetailsComponent implements OnInit {
   id: number; starsHtml!: string; product?: product;
   ngOnInit(): void { this.generateStars(); }
   constructor(private route: ActivatedRoute) {
-    this.id=Number.parseInt(this.route.snapshot.params['id']);
+    this.id=Number(this.route.snapshot.params['id']);
     this.product=productsData.products.find(p=>p.id===this.id);
   }
 

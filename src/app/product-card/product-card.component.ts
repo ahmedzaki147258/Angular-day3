@@ -1,10 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { product } from '../interfaces/product.interface';
 import { Router } from '@angular/router';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [
+    CurrencyPipe
+  ],
   templateUrl: './product-card.component.html',
   standalone: true,
   styleUrl: './product-card.component.css'

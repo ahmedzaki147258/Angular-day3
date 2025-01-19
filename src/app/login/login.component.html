@@ -1,1 +1,48 @@
-<p>login works!</p>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
+    <form #loginForm="ngForm" (ngSubmit)="handleFormSubmit(loginForm)">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          [(ngModel)]="formValues.email"
+          #email="ngModel"
+          required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        />
+        @if (email.invalid && (email.touched || loginForm.submitted)) {
+          @if (email.hasError('required')) {
+            <div class="form-text text-danger">E-mail is required.</div>
+          } @else if (email.hasError('pattern')) {
+            <div class="form-text text-danger">E-mail is invalid.</div>
+          }
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          [(ngModel)]="formValues.password"
+          #password="ngModel"
+          required
+        />
+        @if (password.invalid && (password.touched || loginForm.submitted)) {
+          <div class="form-text text-danger">Password is required.</div>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+
+    <div class="text-center mt-3">
+      <span>Don't have an account? <a routerLink="/register" class="text-decoration-none">Register</a></span>
+    </div>
+  </div>
+</div>

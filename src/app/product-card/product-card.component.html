@@ -14,7 +14,7 @@
     <div class="d-flex" [innerHTML]="starsHtml"></div> <!-- stars -->
 
     <div class="d-flex justify-content-between align-items-center">
-      <span class="h5 mb-0">${{ product.price }}</span>
+      <span class="h5 mb-0">{{ product.price | currency }}</span>
       @if(product.stock > 0) {
         <button type="button" class="btn btn-outline-success rounded-5" (click)="navigateToDetails(product.id)">Add to Cart</button>
       } @else {
