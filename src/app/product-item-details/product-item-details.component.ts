@@ -1,26 +1,36 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { product } from '../interfaces/product.interface';
-import productsData from '../../../public/products.json';
 import {CurrencyPipe} from '@angular/common';
 import {DiscountPricePipe} from '../pipes/discount-price.pipe';
+import {ProductsCartService} from '../services/products-cart.service';
+import {ProductsRequestService} from '../services/products-request.service';
 
 @Component({
   selector: 'app-product-item-details',
   imports: [
-    DiscountPricePipe,
-    CurrencyPipe
+    CurrencyPipe,
+    DiscountPricePipe
   ],
   templateUrl: './product-item-details.component.html',
   standalone: true,
-  styleUrl: './product-item-details.component.css'
+  styleUrl: './product-item-details.component.css',
+  providers: [DiscountPricePipe]
 })
 export class ProductItemDetailsComponent implements OnInit {
-  id: number; starsHtml!: string; product?: product;
-  ngOnInit(): void { this.generateStars(); }
-  constructor(private route: ActivatedRoute) {
+  id: number; starsHtml!: string; product?: product; cnt: number=1; counter!: number;
+  constructor(
+    private route: ActivatedRoute,
+    private productsCartService: ProductsCartService,
+    private productsRequestService: ProductsRequestService,
+    private discountPricePipe: DiscountPricePipe
+  ) {
     this.id=Number(this.route.snapshot.params['id']);
-    this.product=productsData.products.find(p=>p.id===this.id);
+  }
+
+  ngOnInit(): void {
+    this.productsRequestService.getProductDetails(this.id).subscribe(p=>{ this.product=p; this.generateStars(); });
+    this.productsCartService.getCartService().subscribe(r=>this.counter=r.length);
   }
 
   private generateStars(): void {
@@ -33,5 +43,21 @@ export class ProductItemDetailsComponent implements OnInit {
       stars += `<i class="fa-regular fa-star text-warning me-1"></i>`;
     }
     this.starsHtml=stars;
+  }
+
+  decreaseCount(){
+    if(this.cnt>1){ this.cnt--; }
+  }
+
+  increaseCount(){
+    if(this.cnt<this.product!.stock){ this.cnt++; }
+  }
+
+  increaseCartCounter(){
+    this.productsCartService.addProduct({
+      id: this.product?.id!,
+      quantity: this.cnt,
+      priceAfterDiscount: this.discountPricePipe.transform(this.product!.price, this.product!.discountPercentage)
+    });
   }
 }

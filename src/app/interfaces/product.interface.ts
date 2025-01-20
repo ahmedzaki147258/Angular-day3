@@ -35,3 +35,9 @@ export interface product {
   images: string[],
   thumbnail: string
 }
+
+export interface cartProduct{
+  id: number;
+  quantity: number;
+  priceAfterDiscount: number;
+}

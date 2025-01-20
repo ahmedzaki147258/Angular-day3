@@ -47,9 +47,9 @@
       </div>
 
       <div class="d-flex align-items-center mb-4">
-        <button class="btn btn-outline-secondary">-</button>
-        <input type="number" class="form-control mx-2 text-center" style="width: 60px;" value="1">
-        <button class="btn btn-outline-secondary">+</button>
+        <button class="btn btn-outline-secondary" (click)="decreaseCount()">-</button>
+        <input type="number" class="form-control mx-2 text-center" style="width: 60px;" [disabled]="true" [value]="cnt">
+        <button class="btn btn-outline-secondary" (click)="increaseCount()">+</button>
       </div>
 
       <p class="text-danger small">Only {{ product!.stock }} Items Left! Don’t miss it.</p>
@@ -57,7 +57,7 @@
       <div class="d-flex">
         <button class="btn btn-success me-3">Buy Now</button>
         @if(product!.stock > 0) {
-          <button class="btn btn-outline-success">Add to Cart</button>
+          <button class="btn btn-outline-success" (click)="increaseCartCounter()">Add to Cart</button>
         } @else {
           <button class="btn btn-outline-secondary" disabled>Add to Cart</button>
         }

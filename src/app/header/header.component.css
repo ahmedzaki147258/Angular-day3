@@ -13,3 +13,14 @@ nav a:hover {
   color: orange;
   font-weight: bold;
 }
+
+.cart-counter {
+  font-weight: bold;
+  color: green;
+  border-radius: 50%;
+  padding: 0.2em 0.5em;
+  font-size: 0.9em;
+  position: relative;
+  top: -10px;
+  left: -20px;
+}

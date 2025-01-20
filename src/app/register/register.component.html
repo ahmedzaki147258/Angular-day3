@@ -1,18 +1,20 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="card p-4 shadow-sm" style="width: 100%; max-width: 500px;">
     <form [formGroup]="registerForm" (ngSubmit)="handleSubmitForm()">
+      <!-- Name -->
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" id="name" name="name" class="form-control" formControlName="name"/>
-        @if (formControls['name'].invalid && (formControls['name'].touched || submitted)) {
+        @if (formControls['name'].invalid && formControls['name'].touched) {
           <div class="form-text text-danger">Name is required.</div>
         }
       </div>
 
+      <!-- Email -->
       <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
         <input type="email" id="email" name="email" class="form-control" formControlName="email"/>
-        @if (formControls['email'].invalid && (formControls['email'].touched || submitted)) {
+        @if (formControls['email'].invalid && formControls['email'].touched) {
           @if (formControls['email'].hasError('required')) {
             <div class="form-text text-danger">E-mail is required.</div>
           } @else if (formControls['email'].hasError('pattern')) {
@@ -21,10 +23,11 @@
         }
       </div>
 
+      <!-- Username -->
       <div class="mb-3">
         <label for="username" class="form-label">User Name</label>
         <input type="text" id="username" name="username" class="form-control" formControlName="username"/>
-        @if (formControls['username'].invalid && (formControls['username'].touched || submitted)) {
+        @if (formControls['username'].invalid && formControls['username'].touched) {
           @if (formControls['username'].hasError('required')) {
             <div class="form-text text-danger">User Name is required.</div>
           } @else if (formControls['username'].hasError('pattern')) {
@@ -33,10 +36,11 @@
         }
       </div>
 
+      <!-- Password -->
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="password" id="password" name="password" class="form-control" formControlName="password"/>
-        @if (formControls['password'].invalid && (formControls['password'].touched || submitted)) {
+        @if (formControls['password'].invalid && formControls['password'].touched) {
           @if (formControls['password'].hasError('required')) {
             <div class="form-text text-danger">Password is required.</div>
           } @else if (formControls['password'].hasError('pattern')) {
@@ -45,14 +49,72 @@
         }
       </div>
 
+      <!-- Confirm Password -->
       <div class="mb-3">
         <label for="confirmPassword" class="form-label">Confirm Password</label>
         <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" formControlName="confirmPassword"/>
-        @if (registerForm.hasError('PasswordNoMatch') && (formControls['password'].touched || submitted)) {
+        @if (registerForm.hasError('PasswordNoMatch') && formControls['password'].touched) {
           <div class="form-text text-danger">Passwords don't match.</div>
         }
       </div>
 
+      <!-- Addresses -->
+      <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="mb-0">Addresses</h5>
+          <button type="submit" class="btn btn-primary" (click)="addAddress()">Add address</button>
+        </div>
+
+        <div formArrayName="addresses">
+          @for(address of addresses.controls; track address; let i=$index){
+            <div [formGroupName]="i" class="border rounded p-3 mb-3">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Address</label>
+                  <input type="text" class="form-control" formControlName="address">
+                  @if (address.get('address')?.invalid && address.get('address')?.touched) {
+                    <div class="form-text text-danger">Address is required</div>
+                  }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Street</label>
+                  <input type="text" class="form-control" formControlName="street">
+                  @if (address.get('street')?.invalid && address.get('street')?.touched) {
+                    <div class="form-text text-danger">Street is required</div>
+                  }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Country</label>
+                  <input type="text" class="form-control" formControlName="country">
+                  @if (address.get('country')?.invalid && address.get('country')?.touched) {
+                    <div class="form-text text-danger">Country is required</div>
+                  }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">City</label>
+                  <input type="text" class="form-control" formControlName="city">
+                  @if (address.get('city')?.invalid && address.get('city')?.touched) {
+                    <div class="form-text text-danger">City is required</div>
+                  }
+                </div>
+              </div>
+
+              <div class="text-end">
+                <button type="button" class="btn btn-danger" (click)="removeAddress(i)">Delete</button>
+              </div>
+            </div>
+          } @empty {
+            <div class="text-center text-muted py-3">
+              No addresses added yet. Click "Add address" to add one.
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Register-->
       <button type="submit" class="btn btn-success w-100">Register</button>
     </form>
 

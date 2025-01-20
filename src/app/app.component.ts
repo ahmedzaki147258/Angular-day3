@@ -11,4 +11,5 @@ import { HeaderComponent } from './header/header.component';
 })
 export class AppComponent {
   title = 'day3';
+  public userProducts: any[] = [];
 }
