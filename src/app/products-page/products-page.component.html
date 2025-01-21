@@ -1,6 +1,5 @@
 <div class="container mt-4">
   <h5>Welcome to our shopping website, start browsing...</h5>
-
   <div class="row g-4">
     @for (product of products; track product.id) {
       <div class="col-custom">
@@ -8,4 +7,11 @@
       </div>
     }
   </div>
+  @if (loading) {
+    <div class="text-center mt-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  }
 </div>

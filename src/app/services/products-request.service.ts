@@ -9,10 +9,10 @@ import {product} from '../interfaces/product.interface';
 })
 export class ProductsRequestService {
   constructor(private Http: HttpClient) { }
-  getProducts(): Observable<product[]>{
-    return this.Http.get<{ products: product[] }>(`${environment.base_url}/products`).pipe(map(response => response.products));
+  getProducts(page: number, limit: number): Observable<product[]>{
+    return this.Http.get<{ products: product[] }>(`${environment.base_url}/products?skip=${page*limit}&limit=${limit}`).pipe(map(response => response.products));
   }
- getProductDetails(id: number): Observable<product>{
+  getProductDetails(id: number): Observable<product>{
     return this.Http.get<product>(`${environment.base_url}/products/${id}`);
   }
 }
